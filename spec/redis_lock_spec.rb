@@ -1,6 +1,8 @@
 require "helper"
 require "logger"
 
+require 'redis_lock/helpers/redis'
+
 describe RedisLock::Lock, redis: true do
 
   let(:non) { nil }

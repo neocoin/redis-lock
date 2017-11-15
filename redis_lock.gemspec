@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = RedisLock::VERSION
 
-  gem.add_dependency "redis"
+  gem.add_dependency "redis", "~> 3"
 
   gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'simplecov'
@@ -23,4 +23,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'guard-rspec'
   gem.add_development_dependency 'rb-fsevent'      # for guard
   gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'awesome_print'
 end

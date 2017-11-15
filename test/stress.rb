@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require "bundler/setup"       # set up gem paths
-require "redis-lock"          # load this gem
+require "redis_lock"          # load this gem
 require "optparse"
 require "ostruct"
 
