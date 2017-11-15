@@ -1,15 +1,15 @@
 require "helper"
 require "logger"
 
-describe Redis::Lock, redis: true do
+describe RedisLock::Lock, redis: true do
 
   let(:non) { nil }
   let(:her) { "Alice" }
   let(:him) { "Bob" }
-  let(:hers)       { Redis::Lock.new( redis, "alpha", owner: her ) }
-  let(:her_same)   { Redis::Lock.new( redis, "alpha", owner: her ) }
-  let(:his)        { Redis::Lock.new( redis, "alpha", owner: him ) }
-  let(:his_other)  { Redis::Lock.new( redis, "beta",  owner: him ) }
+  let(:hers)       { RedisLock::Lock.new( redis, "alpha", owner: her ) }
+  let(:her_same)   { RedisLock::Lock.new( redis, "alpha", owner: her ) }
+  let(:his)        { RedisLock::Lock.new( redis, "alpha", owner: him ) }
+  let(:his_other)  { RedisLock::Lock.new( redis, "beta",  owner: him ) }
   let(:past   ) { 1 }
   let(:present) { 2 }
   let(:future ) { 3 }
@@ -36,13 +36,13 @@ describe Redis::Lock, redis: true do
 
     it "passes the lock into a supplied block" do
       hers.lock do |lock|
-        lock.should be_an_instance_of(Redis::Lock)
+        lock.should be_an_instance_of(RedisLock::Lock)
       end
     end
 
     it "passes the lock into a supplied lambda" do
       action = ->(lock) do
-        lock.should be_an_instance_of(Redis::Lock)
+        lock.should be_an_instance_of(RedisLock::Lock)
       end
       hers.lock( &action )
     end
@@ -139,20 +139,20 @@ describe Redis::Lock, redis: true do
 
   example "How to get a lock using the helper when passing a block" do
     redis.lock his do |lock|
-      lock.should be_an_instance_of(Redis::Lock)
+      lock.should be_an_instance_of(RedisLock::Lock)
       :return_value_of_block
     end.should eql(:return_value_of_block)
   end
 
   example "How to get a lock using the helper when not passing a block" do
     lock = redis.lock his
-    lock.should be_an_instance_of(Redis::Lock)
+    lock.should be_an_instance_of(RedisLock::Lock)
 
     begin
       lock.lock
-    rescue Redis::Lock::LockNotAcquired => e
+    rescue RedisLock::Lock::LockNotAcquired => e
       e
-    end.should be_an_instance_of(Redis::Lock::LockNotAcquired)
+    end.should be_an_instance_of(RedisLock::Lock::LockNotAcquired)
 
     lock.unlock
   end

@@ -1,12 +1,9 @@
-# -*- encoding: utf-8 -*-
+require 'bundler'
+Bundler.require(:default, :development)
 
-require "bundler/setup"       # set up gem paths
-#require "ruby-debug"          # because sometimes you need it
-
-require "simplecov"           # code coverage
 SimpleCov.start               # must be loaded before our own code
 
-require "redis-lock"          # load this gem
+require "redis_lock"          # load this gem
 require "support/redis"       # simple helpers for testing
 
 RSpec.configure do |spec|

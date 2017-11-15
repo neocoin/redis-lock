@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/redis-lock/version', __FILE__)
+require File.expand_path('../lib/redis_lock/version', __FILE__)
 
 Gem::Specification.new do |gem|
+  gem.name          = "redis_lock"
   gem.authors       = ["Mark Lanett", "Ravil Bayramgalin", "Jamie Cobbett", "Jonathan Hyman", "Alexander Lang", "Tom Mornini"]
   gem.email         = ["mark.lanett@gmail.com"]
   gem.description   = %q{Pessimistic locking using Redis}
@@ -11,9 +12,15 @@ Gem::Specification.new do |gem|
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.name          = "mlanett-redis-lock"
   gem.require_paths = ["lib"]
-  gem.version       = Redis::Lock::VERSION
+  gem.version       = RedisLock::VERSION
 
   gem.add_dependency "redis"
+
+  gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'simplecov'
+  gem.add_development_dependency 'guard'
+  gem.add_development_dependency 'guard-rspec'
+  gem.add_development_dependency 'rb-fsevent'      # for guard
+  gem.add_development_dependency 'rspec'
 end
